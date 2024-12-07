@@ -1,6 +1,7 @@
 package web.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Entity
@@ -10,12 +11,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotEmpty(message = "Name should not be empty")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must not contain digits")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     @Column(name = "name")
     private String name;
 
+    @Min(value = 0, message = "Age should be greater then 0")
     @Column(name = "age")
     private int age;
 
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
     @Column(name = "email")
     private String email;
 
